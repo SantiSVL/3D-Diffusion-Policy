@@ -1,0 +1,2 @@
+tag,kind,value,episodes,successes,success_rate,ci_low,ci_high,mean_traj_rewards,latency_ms_mean,latency_ms_p95,n_calls,seconds,ckpt
+best,steps,10.0,100,68,0.68,0.5833719774632081,0.7633098918454312,6631.988063164368,47.68769687712192,60.95163091085848,2500,295.6265902519226,/home/onyxia/work/3D-Diffusion-Policy/3D-Diffusion-Policy/data/sweeps/s1_best.ckpt
