@@ -112,7 +112,7 @@ step "9. pytorch3d simplificado (compila CUDA, tarda varios minutos)"
 # ---------------------------------------------------------------------------
 step "10. Paquetes restantes"
 pip install zarr==2.12.0 wandb ipdb gpustat dm_control omegaconf hydra-core==1.2.0 dill==0.3.5.1 \
-    einops==0.4.1 diffusers==0.11.1 numba==0.56.4 moviepy imageio av matplotlib termcolor
+    einops==0.4.1 diffusers==0.11.1 numba==0.56.4 natsort moviepy imageio av matplotlib termcolor
 # diffusers 0.11.1 necesita un huggingface_hub antiguo (cached_download)
 pip install "huggingface_hub<0.26"
 # visualizador de nubes de puntos (opcional)
