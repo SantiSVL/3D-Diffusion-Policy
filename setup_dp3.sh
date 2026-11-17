@@ -71,7 +71,7 @@ export CC=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc
 export CXX=$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++
 export CPATH=$CONDA_PREFIX/targets/x86_64-linux/include:$CONDA_PREFIX/include
 export LIBRARY_PATH=$CONDA_PREFIX/targets/x86_64-linux/lib:$CONDA_PREFIX/lib
-export TORCH_CUDA_ARCH_LIST="8.6"
+export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;9.0"
 EOF
 set +e
 source $WORK/activate_dp3.sh
