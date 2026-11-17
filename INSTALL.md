@@ -12,6 +12,38 @@ First, git clone this repo and `cd` into it.
 **Don't worry about the gym version now. Just install my version in `third_party/gym-0.21.0` and you will be fine.**
 
 ---
+ 
+## Quick setup on Onyxia / SSP Cloud (fork-specific)
+ 
+This section is specific to our fork. It automates the installation on the SSP Cloud datalab (Onyxia), using the `vscode-pytorch-gpu` service. The environment we validated: Ubuntu 24.04, NVIDIA A2 (15 GB), driver with CUDA 13.4, `sudo` available, micromamba, Python 3.8 and torch 2.0.1+cu118.
+ 
+1. Launch a `vscode-pytorch-gpu` service with 1 GPU and a persistent volume (it is mounted at `/home/onyxia/work`). Clone your fork inside `/home/onyxia/work`.
+2. Run the setup script from the root of the repository:
+```
+export REPO_URL=https://github.com/<usuario>/3D-Diffusion-Policy.git
+bash setup_dp3.sh
+```
+ 
+`REPO_URL` is only needed if the repository is not cloned yet at `/home/onyxia/work/3D-Diffusion-Policy`. If it is already there, you can simply run `bash setup_dp3.sh`.
+ 
+3. In every new terminal, reactivate the environment with:
+```
+source /home/onyxia/work/activate_dp3.sh
+```
+ 
+What the script does, in order: system libraries with `apt` (if `sudo` is available), micromamba and the `dp3` environment (Python 3.8), MuJoCo 2.1.0, the `activate_dp3.sh` file, gcc 11 / `nvcc` 11.8 / X11 and OpenGL headers from conda-forge, torch cu118, the `opencv-python` fix for `gym-0.21.0`, all the `pip install -e` steps below, `huggingface_hub<0.26` (needed by `diffusers==0.11.1`), and a final smoke test that includes an offscreen render.
+ 
+Notes:
+ 
+- Everything important lives in `/home/onyxia/work`, which is the persistent volume. Packages installed with `apt` are lost when the service is relaunched, so rerun the script (it skips what already exists) or at least step 1.
+- If EGL rendering fails, use `export MUJOCO_GL=osmesa PYOPENGL_PLATFORM=osmesa` (CPU rendering, slower).
+- If `import mujoco_py` fails after cleaning a build, do not delete the whole `third_party/mujoco-py-2.1.2.14/mujoco_py/generated` folder: it contains `wrappers.pxi`. Remove only `generated/_pyxbld_*`, `cymj.c` and `cymj*.so`.
+- `dexart-release` is installed with a warning instead of an error, because it is only needed for the DexArt tasks and not for MetaWorld.
+- The script was reconstructed from the commands that worked step by step, not tested in a single clean run. If a step fails, the `=== N. ... ===` header tells you which one.
+The manual steps below are the original instructions, kept for reference. The script above replaces them.
+ 
+
+---
 
 1.create python/pytorch env
 
